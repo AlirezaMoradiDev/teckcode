@@ -19,7 +19,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ["email", "date_of_birth", 'first_name', 'last_name', 'username']
+        fields = ["email", "date_of_birth", 'first_name', 'last_name', 'username', 'is_instructor']
 
     def clean(self):
         super().clean()
@@ -73,7 +73,8 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ["email", "password", "date_of_birth", "is_active", "is_admin", 'first_name', 'last_name', 'username']
+        fields = ["email", "password", "date_of_birth", "is_active", "is_admin", 'first_name', 'last_name', 'username',
+                  'is_instructor']
 
 
 class UserAdmin(BaseUserAdmin):
@@ -84,11 +85,11 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ["username", "date_of_birth", "is_admin",]
+    list_display = ["username", "date_of_birth", "is_admin", 'is_instructor']
     list_filter = ["is_admin"]
     fieldsets = [
         (None, {"fields": ["username", "password"]}),
-        ("Personal info", {"fields": ["date_of_birth", 'first_name', 'last_name']}),
+        ("Personal info", {"fields": ["date_of_birth", 'first_name', 'last_name', 'is_instructor']}),
         ("Permissions", {"fields": ["is_admin"]}),
 
     ]
@@ -103,10 +104,11 @@ class UserAdmin(BaseUserAdmin):
                     'first_name',
                     'last_name',
                     "email",
-                    'username'
+                    'username',
                     "password1",
                     "password2",
                     "date_of_birth",
+                    'is_instructor'
                 ],
             },
         ),
