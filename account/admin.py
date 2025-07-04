@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from account.models import MyUser
+from account.models import MyUser, Skill, InstructorProfile
 
 
 class UserCreationForm(forms.ModelForm):
@@ -86,7 +86,6 @@ class UserAdmin(BaseUserAdmin):
     # that reference specific fields on auth.User.
     list_display = ["username", "date_of_birth", "is_admin",]
     list_filter = ["is_admin"]
-    list_editable = ['first_name', 'last_name']
     fieldsets = [
         (None, {"fields": ["username", "password"]}),
         ("Personal info", {"fields": ["date_of_birth", 'first_name', 'last_name']}),
@@ -122,3 +121,5 @@ admin.site.register(MyUser, UserAdmin)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 admin.site.unregister(Group)
+admin.site.register(Skill)
+admin.site.register(InstructorProfile)

@@ -58,12 +58,14 @@ class MyUser(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
 
     objects = MyUserManager()
+    is_instructor = models.BooleanField(default=False)
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = [
         "first_name",
         "last_name",
         "email",
+        "is_instructor"
     ]
 
     def __str__(self):
@@ -84,3 +86,23 @@ class MyUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+
+class Skill(models.Model):
+    name = models.CharField(max_length=30)
+    date_added = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class InstructorProfile(models.Model):
+    name = models.OneToOneField(MyUser, on_delete=models.CASCADE)
+    skill = models.ManyToManyField(Skill)
+    image = models.ImageField(upload_to='Instructor', null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
