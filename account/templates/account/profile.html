@@ -360,14 +360,9 @@
             <section class="section">
                 <h2 class="section-title">My Skills</h2>
                 <div class="skills-container" id="skills">
-                    <span class="skill">Leadership Development</span>
-                    <span class="skill">Performance Coaching</span>
-                    <span class="skill">Mindset Training</span>
-                    <span class="skill">Communication Skills</span>
-                    <span class="skill">Emotional Intelligence</span>
-                    <span class="skill">Goal Setting</span>
-                    <span class="skill">Team Building</span>
-                    <span class="skill">Conflict Resolution</span>
+                    {% for skill in user.skill.all %}
+                    <span class="skill">{{ skill }}</span>
+                    {% endfor %}
                 </div>
             </section>
 

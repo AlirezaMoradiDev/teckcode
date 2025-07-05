@@ -13,7 +13,7 @@ def register_instructor(request):
                 instructor_main = form.save(commit=False)
                 instructor_main.name = request.user
                 instructor_main.save()
-                return redirect('account:profile')
+                return redirect('account:profile', username=request.user.username)
         else:
             form = InstructorForm(user=request.user)
     else:
