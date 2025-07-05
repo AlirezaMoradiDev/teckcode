@@ -3,7 +3,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, username, first_name, last_name, email, password=None):
+    def create_user(self, username, first_name, last_name, email, is_instructor, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -16,13 +16,14 @@ class MyUserManager(BaseUserManager):
             first_name=first_name,
             last_name=last_name,
             email=self.normalize_email(email),
+            is_instructor=is_instructor
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, first_name, last_name, email, password=None):
+    def create_superuser(self, username, first_name, last_name, email, is_instructor, password=None):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
@@ -33,6 +34,7 @@ class MyUserManager(BaseUserManager):
             last_name=last_name,
             email=email,
             password=password,
+            is_instructor=is_instructor
 
         )
         user.is_admin = True
@@ -69,7 +71,7 @@ class MyUser(AbstractBaseUser):
     ]
 
     def __str__(self):
-        return self.email
+        return self.username
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
@@ -103,6 +105,6 @@ class InstructorProfile(models.Model):
     bio = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.name.username
 
 

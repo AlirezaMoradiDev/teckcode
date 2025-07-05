@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Profile | [Last Name]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #1a1a2e;
+            --darker: #16213e;
+            --light: #e2e2e2;
+            --accent: #f8a5c2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--primary), transparent 70%);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .profile-header::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent), transparent 70%);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+            transition: transform 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .profile-title {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(108, 92, 231, 0.1);
+            border-radius: 50px;
+            border: 1px solid var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .contact-email:hover {
+            background: rgba(108, 92, 231, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.2);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--darker);
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section {
+            background: var(--darker);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .bio-text {
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skill {
+            background: rgba(108, 92, 231, 0.1);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            border: 1px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .skill:hover {
+            background: rgba(108, 92, 231, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 1/1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(108, 92, 231, 0.3), rgba(248, 165, 194, 0.3));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: float 15s infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 3s;
+            background: var(--accent);
+        }
+
+        .shape:nth-child(3) {
+            width: 70px;
+            height: 70px;
+            top: 80%;
+            left: 30%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-50px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+
+        .watermark {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0.2;
+            font-size: 0.8rem;
+            color: var(--light);
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <header class="profile-header">
+            <img src="https://via.placeholder.com/300" alt="Coach [Last Name]" class="profile-image">
+            <h1 class="profile-name">{{ user.name.first_name }} {{ user.name.last_name }} <span id="last-name"></span></h1>
+            <p class="profile-title">Professional Coach & Mentor</p>
+            <a href="mailto:coach@example.com" class="contact-email" id="email">
+                <i class="fas fa-envelope"></i>
+                {{ user.name.email }}
+            </a>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </header>
+
+        <main class="profile-content">
+            <section class="section">
+                <h2 class="section-title">About Me</h2>
+                <p class="bio-text" id="bio">
+                    {{ user.bio }}
+                </p>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">My Skills</h2>
+                <div class="skills-container" id="skills">
+                    <span class="skill">Leadership Development</span>
+                    <span class="skill">Performance Coaching</span>
+                    <span class="skill">Mindset Training</span>
+                    <span class="skill">Communication Skills</span>
+                    <span class="skill">Emotional Intelligence</span>
+                    <span class="skill">Goal Setting</span>
+                    <span class="skill">Team Building</span>
+                    <span class="skill">Conflict Resolution</span>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Coaching Philosophy</h2>
+                <p class="bio-text">
+                    I believe in a holistic approach that addresses mind, body, and spirit. My coaching style is both challenging and supportive - pushing clients beyond their comfort zones while providing a safe space for growth.
+                    <br><br>
+                    Every session is tailored to the individual's needs, blending structured techniques with organic discovery. Success is measured not just by achieved goals, but by the personal transformation that occurs along the way.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Gallery</h2>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="https://via.placeholder.com/300" alt="Coaching session">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://via.placeholder.com/300" alt="Workshop">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://via.placeholder.com/300" alt="Speaking engagement">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://via.placeholder.com/300" alt="Client success">
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="watermark">Coach Profile Template</div>
+
+
+</body>
+</html>

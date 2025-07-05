@@ -256,81 +256,11 @@
     <div class="container">
         <div class="form-container">
             <h1>Trainer Registration</h1>
-            <form id="trainerForm">
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" required placeholder="John Doe">
-                </div>
+            <form id="trainerForm" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit">ارسال</button>
 
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required placeholder="john@example.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+1 (123) 456-7890">
-                </div>
-
-                <div class="form-group">
-                    <label for="specialization">Specialization</label>
-                    <select id="specialization" name="specialization" required>
-                        <option value="">Select your specialization</option>
-                        <option value="personal">Personal Training</option>
-                        <option value="yoga">Yoga Instructor</option>
-                        <option value="pilates">Pilates Instructor</option>
-                        <option value="crossfit">CrossFit Coach</option>
-                        <option value="nutrition">Nutrition Specialist</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="experience">Years of Experience</label>
-                    <select id="experience" name="experience" required>
-                        <option value="">Select years of experience</option>
-                        <option value="0-1">0-1 years</option>
-                        <option value="1-3">1-3 years</option>
-                        <option value="3-5">3-5 years</option>
-                        <option value="5+">5+ years</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Skills & Certifications</label>
-                    <div style="display: flex; gap: 10px;">
-                        <input type="text" id="skillInput" placeholder="Add a skill or certification">
-                        <button type="button" id="add-skill">Add</button>
-                    </div>
-                    <div class="skills-container" id="skillsContainer">
-                        <!-- Skills will be added here dynamically -->
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="bio">Professional Bio</label>
-                    <textarea id="bio" name="bio" required placeholder="Tell us about your training philosophy, experience, and approach..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>Profile Photo</label>
-                    <div class="file-upload">
-                        <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" class="file-upload-input">
-                        <label for="profilePhoto" class="file-upload-label">Choose a file or drag it here</label>
-                        <div class="file-upload-preview" id="filePreview">
-                            <img id="previewImage" src="#" alt="Preview">
-                            <div id="fileName"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="submit-btn">Register as Trainer</button>
-                </div>
-
-                <div class="form-footer">
-                    By registering, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-                </div>
             </form>
         </div>
     </div>
