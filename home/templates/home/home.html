@@ -546,7 +546,7 @@
                         <li><a href="#">Home</a></li>
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Courses</a></li>
-                        <li><a href="#">Instructors</a></li>
+                        <li><a href="{% url 'account:profile' request.user %}">پروفایل</a></li>
                         <li><a href="{% url 'account:signup' %}">ثبت نام استاد</a></li>
                     </ul>
                 </div>

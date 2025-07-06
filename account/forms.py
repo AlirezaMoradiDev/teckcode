@@ -9,7 +9,7 @@ class InstructorForm(forms.ModelForm):
         self.user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
 
-    input_new_skill = forms.CharField()
+    input_new_skill = forms.CharField(required=False)
 
     class Meta:
         model = InstructorProfile
@@ -22,13 +22,10 @@ class InstructorForm(forms.ModelForm):
 
     def clean(self):
         super().clean()
-        skills = self.cleaned_data.get('input_new_skill').split(',')
-        for name_skill in skills:
-            Skill.objects.create(name=name_skill)
-
         account = MyUser.objects.get(id=self.user.id)
         if not account.is_instructor:
             raise ValidationError('you not access')
         else:
             self.cleaned_data['name'] = self.user
             return self.cleaned_data
+

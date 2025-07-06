@@ -6,18 +6,22 @@ from .forms import InstructorForm
 def register_instructor(request):
     user = request.user
     instructor = MyUser.objects.get(id=user.id)
-    if instructor.is_instructor:
-        if request.method == "POST":
-            form = InstructorForm(request.POST, user=request.user)
-            if form.is_valid():
-                instructor_main = form.save(commit=False)
-                instructor_main.name = request.user
-                instructor_main.save()
-                return redirect('account:profile', username=request.user.username)
-        else:
-            form = InstructorForm(user=request.user)
+    if InstructorProfile.objects.filter(name__username=request.user.username).exists():
+        return redirect('account:profile', username=request.user.username)
     else:
-        return redirect('account:not_access')
+        if instructor.is_instructor:
+            if request.method == "POST":
+                form = InstructorForm(request.POST, user=request.user)
+                if form.is_valid():
+                    instructor_main = form.save(commit=False)
+                    instructor_main.name = request.user
+                    instructor_main.save()
+                    form.save_m2m()
+                    return redirect('account:profile', username=request.user.username)
+            else:
+                form = InstructorForm(user=request.user)
+        else:
+            return redirect('account:not_access')
     return render(request, 'account/register_instructor.html', context={'form': form})
 
 
