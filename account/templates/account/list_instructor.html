@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Language Instructors</title>
+    <style>
+        :root {
+            --primary: #2a9fd6;
+            --secondary: #1d1d1d;
+            --dark: #121212;
+            --light: #e0e0e0;
+            --accent: #4CAF50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--secondary);
+            padding: 20px 0;
+            border-bottom: 3px solid var(--primary);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .teacher-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .teacher-card {
+            background-color: var(--secondary);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .teacher-header {
+            background-color: var(--primary);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .teacher-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            margin-right: 15px;
+        }
+
+        .teacher-name {
+            font-size: 1.4em;
+            margin: 0;
+        }
+
+        .teacher-title {
+            margin: 5px 0 0;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .teacher-body {
+            padding: 20px;
+        }
+
+        .teacher-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .skill-tag {
+            background-color: rgba(42, 159, 214, 0.2);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+
+        .teacher-bio {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .teacher-contact {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #333;
+            padding-top: 15px;
+        }
+
+        .contact-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .contact-btn:hover {
+            background-color: #3e8e41;
+        }
+
+        .language-filter {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .teacher-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Programming Instructors</h1>
+            <p class="subtitle">Learn from industry experts and experienced educators</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="language-filter">
+            <button class="filter-btn active">{{ skill.name }}</button>
+
+        </div>
+
+        <div class="teacher-grid">
+            <!-- Teacher 1 -->
+            {% for i in people %}
+            <div class="teacher-card">
+                <div class="teacher-header">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="teacher-avatar">
+                    <div>
+                        <h2 class="teacher-name">{{ i.name.first_name }}{{ i.name.last_name }}</h2>
+                        <p class="teacher-title">{{ i.bio }}</p>
+                    </div>
+                </div>
+                <div class="teacher-body">
+                    {% for j in i.skill.all %}
+                    <div class="teacher-skills">
+                        <span class="skill-tag">{{ j.name }}</span>
+                    </div>
+                    {% endfor %}
+                    <p class="teacher-bio">
+                        10+ years of experience teaching Python to beginners and advanced students. Specializes in web development and data analysis with Python.
+                    </p>
+                    <div class="teacher-contact">
+                        <span>8 years experience</span>
+                        <a href="#" class="contact-btn">Contact</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+</html>

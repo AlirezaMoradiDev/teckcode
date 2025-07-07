@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account',
     'django_cleanup.apps.CleanupConfig',
     'home',
+    'course',
 ]
 
 MIDDLEWARE = [

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
-from .models import MyUser, InstructorProfile
+from .models import MyUser, InstructorProfile, Skill
 from .forms import InstructorForm
 
 
@@ -39,3 +39,9 @@ class ErrorNotAccessPage(TemplateView):
 def profile_instructor(request, username):
     instructor = InstructorProfile.objects.get(name__username=username)
     return render(request, 'account/profile.html', context={'user': instructor})
+
+def skill_people(request, id):
+    skill = Skill.objects.get(id=id)
+    people = skill.instructorprofile_set.all()
+    return render(request, 'account/list_instructor.html', context={'people': people, 'skill': skill})
+
