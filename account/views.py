@@ -43,8 +43,18 @@ class ProfileInstructor(DetailView):
     slug_url_kwarg = 'username'
 
 
-def skill_people(request, id):
-    skill = Skill.objects.get(id=id)
-    people = skill.instructorprofile_set.all()
-    return render(request, 'account/list_instructor.html', context={'people': people, 'skill': skill})
+class SkillProfile(DetailView):
+    model = Skill
+    template_name = 'account/list_instructor.html'
+    context_object_name = 'skill'
+    slug_field = 'id'
+    slug_url_kwarg = 'id'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        skill = self.get_object()
+        context['people'] = skill.instructorprofile_set.all()
+        return context
+
+
 
